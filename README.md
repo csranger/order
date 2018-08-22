@@ -84,4 +84,42 @@
 启动 ProductApplication2 时修改成 return "this is product's msg 2" 然后多次在 Order 应用中访问可以发现返回值会变化，这是因为默认采用 轮询方式 
 7. 如何改变负载均衡策略
     - http://cloud.spring.io/spring-cloud-static/Finchley.SR1/single/spring-cloud.html#_customizing_the_default_for_all_ribbon_clients
-8. 使用 Feign 进行应用通信
+    
+### 使用 Feign 进行应用通信
+1. 添加依赖 spring-cloud-starter-feign 并在启动类上添加注解 @EnableFeignClients 
+2. 新建 client 包，新建 ProductClient 接口
+    ```
+    @FeignClient(name = "product")
+    public interface ProductClient {
+        @GetMapping(value = "/msg")         // 访问 product 应用下的 msg 接口
+        String productMsg();
+    
+    }
+    ```
+3. 在 ClientController 里就可以直接引入 ProductClient 的 Bean 访问 product 服务的 msg 接口
+4. Feign:声明式REST客户端，采用基于接口的注解
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
