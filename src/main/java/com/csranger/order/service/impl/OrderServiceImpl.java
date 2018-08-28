@@ -30,9 +30,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public OrderDTO create(OrderDTO orderDTO) {
-        // 查询商品信息
+        // 查询商品信息(调用商品服务)
         // 计算总价
-        // 减库存
+        // 减库存(调用商品服务)
 
         // 订单入库：向 order_master 和 order_detail 表插入订单数据
         OrderMaster orderMaster = new OrderMaster();

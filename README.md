@@ -99,6 +99,10 @@
 3. 在 ClientController 里就可以直接引入 ProductClient 的 Bean 访问 product 服务的 msg 接口
 4. Feign:声明式REST客户端，采用基于接口的注解
 
+### 使用 Feign 查询商品信息
+1. 订单服务调用商品服务查询商品信息
+
+### 使用 Feign 扣库存
 
 
 

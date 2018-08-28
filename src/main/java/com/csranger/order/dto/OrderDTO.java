@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 显然一次订单可能会购买许多商品，这就意味着：某个 orderId 对应的 订单Order 会有许多 订单商品详情orderId
- * (一对多关系：对象OrderDTO 封装1个 订单 及其对应的多个 订单商品详情)
+ * 显然一次订单OrderMaster可能会购买许多商品，这就意味着：某个 orderId 对应的 OrderMaster 会有许多 OrderDetail
+ * (一对多关系：对象OrderDTO 封装1个 订单OrderMaster 及其对应的多个 订单商品详情OrderDetail)
  */
 @Data
 public class OrderDTO {

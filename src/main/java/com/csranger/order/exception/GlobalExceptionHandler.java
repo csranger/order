@@ -20,11 +20,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)     // 表明拦截所有异常
     public Result<String> exceptionHandler(HttpServletRequest request, Exception e) {
-
+        // 订单异常
         if (e instanceof OrderException) {
             return Result.error(((OrderException) e).getCodeMsg());
-        } else {
-            return Result.error(CodeMsg.SERVER_ERROR);
         }
+
+        // 未知异常，打印异常信息
+        return Result.error(new CodeMsg(500000, e.getMessage()));
     }
 }

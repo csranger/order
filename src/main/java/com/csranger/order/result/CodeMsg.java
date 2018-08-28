@@ -27,14 +27,13 @@ public class CodeMsg {
     public static CodeMsg ORDER_SHOPPING_CART_EMPTY = new CodeMsg(500202, "创建订单信息为空");
 
 
-
-
-
-    // 私有构造器
-    private CodeMsg(Integer code, String msg) {
+    // 构造器，未知异常使用
+    public CodeMsg(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
+
+
 
     // toString
     @Override
