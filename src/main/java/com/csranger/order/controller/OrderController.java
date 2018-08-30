@@ -26,6 +26,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+
     /**
      *
      * 1. 参数校验
@@ -41,15 +42,20 @@ public class OrderController {
             log.error("创建订单参数不正确, orderCreateFormVO={}", orderCreateFormVO);
             throw new OrderException(CodeMsg.ORDER_PARAMETER_ERROR);
         }
-        // 5. 订单入库
-        // 5.1 OrderCreateFormVO -> OrderDTO 用于生成订单
+
+        // OrderCreateFormVO -> OrderDTO 用于生成订单
         OrderDTO orderDTO = OrderFormVO2OrderDTO.convert(orderCreateFormVO);
         if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("创建订单信息为空");
             throw new OrderException(CodeMsg.ORDER_SHOPPING_CART_EMPTY);
         }
-        // 5.2
+
+        // 2. 查询商品信息(调用商品服务)
+        // 3. 计算总价
+        // 4. 扣库存(调用商品服务)
+        // 5. 订单入库
         OrderDTO result = orderService.create(orderDTO);
+
         OrderCreateDetailVO orderCreateDetailVO = new OrderCreateDetailVO();  // 使用Map也可
         orderCreateDetailVO.setOrderId(result.getOrderId());
 

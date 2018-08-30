@@ -1,6 +1,7 @@
 package com.csranger.order.controller;
 
 import com.csranger.order.client.ProductClient;
+import com.csranger.order.dto.CartDTO;
 import com.csranger.order.model.ProductInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class ClientController {
     @Autowired
     private ProductClient productClient;
 
+    /**
+     * 测试调用商品服务的 /msg 接口
+     */
     @GetMapping(value = "/getProductMsg")
     public String getProductMsg() {
         String response = productClient.productMsg();
@@ -37,6 +41,15 @@ public class ClientController {
     public String getProductList() {
         List<ProductInfo> productInfoList = productClient.listForOrder(Arrays.asList("157875196366160062", "157875196366160062"));
         log.info("response={}", productInfoList);
+        return "ok";
+    }
+
+    /**
+     * 创建订单时需要调用商品服务减库存
+     */
+    @GetMapping(value = "/reduceStock")
+    public String reduceStock() {
+        productClient.decreaseStock(Arrays.asList(new CartDTO("157876323366164068", 5)));
         return "ok";
     }
 }
