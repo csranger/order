@@ -7,9 +7,9 @@
 3. 添加 spring-boot-starter-web 依赖
 4. 添加 spring-jps, mysql, lombok 依赖
 
-## 订单服务(新建一个项目 order)
+## 订单服务(新建一个项目 com.csranger.order)
 ### API 
-1. POST /order/create
+1. POST /com.csranger.order/create
 2. 参数 
     ```
     name:       张三   
@@ -110,7 +110,20 @@
 
 ### 完成下单流程
 
+## 改造成多模块 
+### 商品服务供订单服务调用存在的问题
+1. 直接暴露了与数据库对应的实体类
+    - ProductController 类中的 listForOrder 方法直接返回 List<ProductInfo>
+    - ProductInfo 与数据库相对应，这不安全
+2. 订单服务与商品服务有许多重复类，比如CartDTO，ProductInfo 等类
+3. ProductClient 里写了商品服务的一些接口，开发订单服务的可能不熟悉，放在订单服务不合适，应该放在商品服务以供调用，因为这两组服务可能有不同团队负责
 
+### 将订单模块和商品模块都改造成多模块解决上述问题
+1. 订单服务页改造成多模块
+2. 订单服务调用商品服务时需要在订单服务启动类上加上 @EnableFeignClients(basePackages = "com.csranger.product.client")
+3. 订单服务需要在pom文件里引入商品服务的 product-client 的 jar 包，在商品服务里 mvn -Dmaven.test.skip=true -U clean install 将项目打包放在本地 .m2 路径下
+
+    
 
 
 
